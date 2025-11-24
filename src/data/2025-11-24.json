@@ -1,0 +1,252 @@
+{
+  "date": "2025-11-24T01:29:11.283Z",
+  "data": {
+    "astro": {
+      "issuePerLabel": {
+        "needs triage": 19,
+        "- P3: minor bug": 97,
+        "feat: typescript": 3,
+        "regression": 2,
+        "feat: actions": 6,
+        "- P2: nice to have": 30,
+        "feat: content collections": 12,
+        "feat: assets": 9,
+        "needs repro": 1,
+        "in review": 10,
+        "feat: server islands": 5,
+        "requires breaking change": 8,
+        "pkg: language-tools": 38,
+        "pkg: node": 5,
+        "pkg: mdx": 4,
+        "- P4: important": 15,
+        "needs response": 4,
+        "pkg: vue": 4,
+        "- P2: has workaround": 33,
+        "pkg: cloudflare": 11,
+        "pkg: astro": 5,
+        "feat: csp": 3,
+        "feat: routing": 9,
+        "feat: dev": 5,
+        "pkg: vercel": 1,
+        "requires refactor": 10,
+        "needs discussion": 4,
+        "feat: syntax": 9,
+        "pkg: svelte": 3,
+        "pkg: markdoc": 3,
+        "feat: ssr": 2,
+        "pkg: netlify": 1,
+        "pkg: react": 5,
+        "feat: i18n": 3,
+        "feat: hmr": 5,
+        "feat: styling": 10,
+        "feat: rendering": 9,
+        "pkg: db": 2,
+        "ecosystem: upstream": 9,
+        "feat: prefetch": 2,
+        "pkg: solid": 4,
+        "feat: markdown": 1,
+        "help wanted": 2,
+        "feat: check": 5,
+        "good first issue": 5,
+        "edt: neovim": 1,
+        "feat: view transitions": 4,
+        "pkg: create-astro": 1,
+        "pkg: rss": 1,
+        "pkg: ts-plugin": 1,
+        "feat: yarn-pnp": 2
+      },
+      "issueCount": 224
+    },
+    "docs": {
+      "issuePerLabel": {
+        "site improvement": 1,
+        "improve or update documentation": 6,
+        "help - confirm behaviour": 1,
+        "help wanted": 1
+      },
+      "issueCount": 7
+    },
+    "prettier-plugin-astro": {
+      "issuePerLabel": {
+        "needs triage": 18,
+        "needs response": 1,
+        "feature": 1,
+        "- P4: important": 4,
+        "feat: expression": 3,
+        "- P3: minor bug": 3,
+        "ecosystem: compiler": 2,
+        "- P2: nice to have": 1
+      },
+      "issueCount": 30
+    },
+    "compiler": {
+      "issuePerLabel": {
+        "needs triage": 26,
+        "- P3: minor bug": 29,
+        "- P2: has workaround": 13,
+        "- P4: important": 12,
+        "feat: ast": 2,
+        "feat: tsx": 7,
+        "needs response": 1,
+        "- P5: urgent": 1,
+        "- P2-to-be-discussed": 2,
+        "- P2: nice to have": 5,
+        "downstream-blocker": 1,
+        "help wanted": 3,
+        "- P1: chore": 1
+      },
+      "issueCount": 88
+    },
+    "astro-repl": {
+      "issuePerLabel": {},
+      "issueCount": 4
+    },
+    "astro.new": {
+      "issuePerLabel": {
+        "good first issue": 1
+      },
+      "issueCount": 1
+    },
+    "roadmap": {
+      "issuePerLabel": {},
+      "issueCount": 2
+    },
+    "withastro.github.io": {
+      "issuePerLabel": {},
+      "issueCount": 1
+    },
+    "astro.build": {
+      "issuePerLabel": {},
+      "issueCount": 1
+    },
+    "astro-playground": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    ".github": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "action": {
+      "issuePerLabel": {
+        "good first issue": 1,
+        "enhancement": 1
+      },
+      "issueCount": 3
+    },
+    "github-pages": {
+      "issuePerLabel": {},
+      "issueCount": 1
+    },
+    "cli-kit": {
+      "issuePerLabel": {},
+      "issueCount": 4
+    },
+    "site-kit": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "blog-tutorial-demo": {
+      "issuePerLabel": {},
+      "issueCount": 1
+    },
+    "houston-vscode": {
+      "issuePerLabel": {
+        "bug": 2
+      },
+      "issueCount": 5
+    },
+    "houston-discord": {
+      "issuePerLabel": {
+        "feature": 2,
+        "RFC": 5,
+        "improvement": 1
+      },
+      "issueCount": 9
+    },
+    "starlight": {
+      "issuePerLabel": {
+        "🐛 bug": 1,
+        "🤩 a11y": 1,
+        "good first issue": 1
+      },
+      "issueCount": 17
+    },
+    "automation": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "view-transitions-demo": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "wormhole": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "contribute.docs.astro.build": {
+      "issuePerLabel": {},
+      "issueCount": 2
+    },
+    "studio-templates": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "astro-issues": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "action-studio": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "astro-ecosystem-ci": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "skew-protection-test": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "support-docs": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "server-islands": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "server-islands-api": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "starlight-gh-pages-test": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "storefront": {
+      "issuePerLabel": {},
+      "issueCount": 2
+    },
+    "preview.astro.new": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "docs-mcp": {
+      "issuePerLabel": {},
+      "issueCount": 1
+    },
+    "astro-netlify-skew-protection": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "nightly-bot": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    },
+    "isastroenvironmentready": {
+      "issuePerLabel": {},
+      "issueCount": 0
+    }
+  }
+}
