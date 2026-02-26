@@ -3,15 +3,17 @@ on:
     - cron: "0 1 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   stats:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
-          # Needs access to push to main
-          token: ${{ secrets.STATS_GITHUB_TOKEN }}
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
@@ -35,4 +37,4 @@ jobs:
         with:
           commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           commit_message: "[ci] collect-stats"
-          branch: ${{ github.head_ref }}
+          branch: main
