@@ -15,6 +15,20 @@ export function getAverageIssueCountForRepo(repo: string, lastDays = 5) {
   return avg;
 }
 
+const HIDDEN_REPOS = [
+  "flue",
+  "wormhole",
+  "skew-protection-test",
+  "server-islands-api",
+  "starlight-gh-pages-test",
+  "action-studio",
+  "storefront",
+  "studio-templates",
+  "site-kit",
+  "astro-ecosystem-ci",
+  "skills",
+];
+
 export const allReposData = {
   labels: [...Object.keys(statsFromLast30Days)],
   datasets: [
@@ -23,7 +37,7 @@ export const allReposData = {
       data: getStatsForRepo(repo),
       borderWidth: 1,
       fill: true,
-      hidden: getAverageIssueCountForRepo(repo) < 7,
+      hidden: HIDDEN_REPOS.includes(repo) || getAverageIssueCountForRepo(repo) < 7,
     })),
   ],
 };
