@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "collect-stats": "tsx ./scripts/get-stats"
+    "collect-stats": "node ./scripts/get-stats.ts"
   },
   "dependencies": {
     "@astrojs/site-kit": "github:withastro/site-kit",
@@ -19,11 +19,9 @@
     "@types/node": "^22.10.2",
     "astro": "^5.12.9",
     "chart.js": "^4.4.7",
-    "dotenv": "^16.4.7",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "tailwindcss": "^3.4.16",
-    "tsx": "^4.19.2"
+    "tailwindcss": "^3.4.16"
   },
   "devDependencies": {
     "vite": "^6.3.5"
