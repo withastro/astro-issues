@@ -1,6 +1,7 @@
 import { Octokit } from "@octokit/core";
-import "dotenv/config";
 import fs from "node:fs";
+
+process.loadEnvFile('.env') 
 
 // Create a personal access token at https://github.com/settings/tokens/new?scopes=repo
 const octokit = new Octokit({
