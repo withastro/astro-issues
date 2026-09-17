@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-17T01:16:27.330Z",
+  "date": "2026-09-17T05:53:56.774Z",
   "data": {
     "astro": {
       "issuePerLabel": {
@@ -29,7 +29,7 @@
     },
     "prettier-plugin-astro": {
       "issuePerLabel": {},
-      "issueCount": 2
+      "issueCount": 0
     },
     "compiler": {
       "issuePerLabel": {
@@ -198,15 +198,14 @@
     },
     "compiler-rs": {
       "issuePerLabel": {
-        "triage: fix pending": 2,
-        "needs triage": 3,
-        "- P2: has workaround": 1,
-        "triage: unable to fix": 2,
+        "triage: fix pending": 1,
+        "needs triage": 1,
         "- P4: important": 1,
         "- P2-to-be-discussed": 2,
+        "triage: unable to fix": 1,
         "triage: needs triage": 1
       },
-      "issueCount": 6
+      "issueCount": 4
     },
     "skills": {
       "issuePerLabel": {},
