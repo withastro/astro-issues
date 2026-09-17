@@ -1,7 +1,10 @@
 import { Octokit } from "@octokit/core";
 import fs from "node:fs";
 
-process.loadEnvFile('.env') 
+// Load a local `.env` for development if present; CI injects the token via env vars.
+if (fs.existsSync(".env")) {
+  process.loadEnvFile(".env");
+}
 
 // Create a personal access token at https://github.com/settings/tokens/new?scopes=repo
 const octokit = new Octokit({
