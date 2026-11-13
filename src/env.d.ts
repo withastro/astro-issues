@@ -7,7 +7,7 @@ type StatObject = Record<
     date: string;
     data: Record<
       string,
-      { issuePerLabel: Record<string, number>; issueCount: number }
+      { issuePerLabel: Record<string, number>; issueCount: number; pullRequestPerLabel?: Record<string, number>; pullRequestCount?: number;  }
     >;
   }
 >;

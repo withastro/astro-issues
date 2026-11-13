@@ -1,6 +1,6 @@
 ---
 import { allRepos, statsFromLast30Days } from 'issues:stats';
-import { getAverageIssueCountForRepo } from '../scripts/data';
+import { getAverageCountForRepo } from '../scripts/data';
 
 function getLabelStatsForRepo(repo: string) {
 	const issuePerLabel =
@@ -11,14 +11,14 @@ function getLabelStatsForRepo(repo: string) {
 }
 
 const topReposLabelData = allRepos
-	.filter((repo) => getAverageIssueCountForRepo(repo) >= 7)
+	.filter((repo) => getAverageCountForRepo(repo, 'issueCount') >= 7)
 	.map((repo) => ({
 		repo,
 		labels: getLabelStatsForRepo(repo),
 	}));
 
 const maxLabelIssueCount = Math.max(
-	...topReposLabelData.flatMap(({ labels }) => labels.flatMap(({ count }) => count))
+	...topReposLabelData.flatMap(({ labels }) => labels.flatMap(({ count }) => count)),
 );
 
 /** Get font size based on a label’s frequency. */

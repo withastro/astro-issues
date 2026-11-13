@@ -1,68 +1,86 @@
 ---
 import LabelStats from "../components/LabelStats.astro";
 import Layout from "../layouts/Layout.astro";
-import { getAverageIssueCountForRepo, getStatsForRepo } from "../scripts/data";
+import { getAverageCountForRepo, getTimeSeriesForRepo } from "../scripts/data";
 import { allRepos, statsFromLast30Days } from "issues:stats";
 
-const biggestDropFromPeak = allRepos
-  .map((repo) => {
-    const stats = getStatsForRepo(repo);
-    const highestPeak = Math.max(...stats.map((stat) => stat));
-    const currentIssues = stats[stats.length - 1];
+const calculateDrops = (metric: 'issueCount' | 'pullRequestCount') => (repo: string) => {
+	const stats = getTimeSeriesForRepo(repo, metric);
+	const highestPeak = Math.max(...stats.map((stat) => stat));
+	const current = stats[stats.length - 1];
 
-    return {
-      repo,
-      currentIssues: currentIssues,
-      peakDate: Object.keys(statsFromLast30Days)[stats.indexOf(highestPeak)],
-      peak: highestPeak,
-      drop: highestPeak - currentIssues,
-    };
-  })
-  .sort((a, b) => b.drop - a.drop);
+	return {
+		repo,
+		current,
+		peakDate: Object.keys(statsFromLast30Days)[stats.indexOf(highestPeak)],
+		peak: highestPeak,
+		drop: highestPeak - current,
+	};
+};
+
+const biggestIssuesDropFromPeak = allRepos
+	.map(calculateDrops('issueCount'))
+	.sort((a, b) => b.drop - a.drop);
+
+const biggestPRsDropFromPeak = allRepos
+	.map(calculateDrops('pullRequestCount'))
+	.sort((a, b) => b.drop - a.drop);
 
 function getStandardDeviation(array: number[]) {
-  const n = array.length;
-  const mean = array.reduce((a, b) => a + b) / n;
-  return Math.sqrt(
-    array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n,
-  );
+	const n = array.length;
+	const mean = array.reduce((a, b) => a + b) / n;
+	return Math.sqrt(array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
 }
 
-const standardDeviationPerRepo = allRepos
-  .filter((repo) => getAverageIssueCountForRepo(repo) > 7)
-  .map((repo) => {
-    const stats = getStatsForRepo(repo);
-    const standardDeviation = getStandardDeviation(stats);
+const getRepoWithLeastStandardDeviation = (metric: 'issueCount' | 'pullRequestCount') => {
+	const standardDeviationPerRepo = allRepos
+		.filter((repo) => getAverageCountForRepo(repo, metric) > 7)
+		.map((repo) => {
+			const stats = getTimeSeriesForRepo(repo, metric);
+			const standardDeviation = getStandardDeviation(stats);
+			return { repo, standardDeviation };
+		})
+		.sort((a, b) => b.standardDeviation - a.standardDeviation);
 
-    return {
-      repo,
-      standardDeviation,
-    };
-  })
-  .sort((a, b) => b.standardDeviation - a.standardDeviation);
+	return standardDeviationPerRepo[standardDeviationPerRepo.length - 1];
+};
 
-const repoWithLeastSD =
-  standardDeviationPerRepo[standardDeviationPerRepo.length - 1];
+const repoWithLeastIssueCountSD = getRepoWithLeastStandardDeviation('issueCount');
+const repoWithLeastPRCountSD = getRepoWithLeastStandardDeviation('pullRequestCount');
 
 const funStats = [
-  {
-    prompt: `Repo with biggest drop in issues <abbr
+	{
+		prompt: `Repo with biggest drop in issues <abbr
       class="text-gray-800 heading-5 ml-[-5px] align-top"
       title="From their highest peak in the last 30 days to today"
       >(?)</abbr
     >`,
-    repo: biggestDropFromPeak[0].repo,
-    comment: `Went from ${biggestDropFromPeak[0].peak} issues on the ${biggestDropFromPeak[0].peakDate} to ${biggestDropFromPeak[0].currentIssues} issues today.`,
-  },
-  {
-    prompt: `Repo with the least change in issues count`,
-    repo: repoWithLeastSD.repo,
-    comment: `Average issue count of ${Math.floor(
-      getAverageIssueCountForRepo(repoWithLeastSD.repo),
-    )} (σ = ${repoWithLeastSD.standardDeviation.toFixed(
-      2,
-    )}) in the last 30 days.`,
-  },
+		repo: biggestIssuesDropFromPeak[0].repo,
+		comment: `Went from ${biggestIssuesDropFromPeak[0].peak} issues on the ${biggestIssuesDropFromPeak[0].peakDate} to ${biggestIssuesDropFromPeak[0].current} issues today.`,
+	},
+	{
+		prompt: `Repo with the least change in issues count`,
+		repo: repoWithLeastIssueCountSD.repo,
+		comment: `Average issue count of ${Math.floor(
+			getAverageCountForRepo(repoWithLeastIssueCountSD.repo, 'issueCount'),
+		)} (σ = ${repoWithLeastIssueCountSD.standardDeviation.toFixed(2)}) in the last 30 days.`,
+	},
+	{
+		prompt: `Repo with biggest drop in open PRs <abbr
+	    class="text-gray-800 heading-5 ml-[-5px] align-top"
+	    title="From their highest peak in the last 30 days to today"
+	    >(?)</abbr
+	  >`,
+		repo: biggestPRsDropFromPeak[0].repo,
+		comment: `Went from ${biggestPRsDropFromPeak[0].peak} open PRs on the ${biggestPRsDropFromPeak[0].peakDate} to ${biggestPRsDropFromPeak[0].current} open PRs today.`,
+	},
+	{
+		prompt: `Repo with the least change in open PRs count`,
+		repo: repoWithLeastPRCountSD.repo,
+		comment: `Average open PR count of ${Math.floor(
+			getAverageCountForRepo(repoWithLeastPRCountSD.repo, 'pullRequestCount'),
+		)} (σ = ${repoWithLeastPRCountSD.standardDeviation.toFixed(2)}) in the last 30 days.`,
+	},
 ];
 ---
 
@@ -92,7 +110,7 @@ const funStats = [
   </section>
 
   <h2 class="heading-3 text-white mt-12 mb-6">Fun stats</h2>
-  <div class="w-full flex flex-col sm:flex-row gap-8">
+  <div class="w-full flex flex-wrap *:flex-grow *:basis-80 gap-8">
     {
       funStats.map((stat) => (
         <div class="bg-white rounded-lg p-4">
