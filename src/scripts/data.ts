@@ -16,49 +16,86 @@ export function getAverageCountForRepo(repo: string, metric: 'issueCount' | 'pul
 }
 
 const HIDDEN_REPOS = [
-  "flue",
+  // low-activity
   "wormhole",
+  "site-kit",
+  // issues + PRs disabled
+  "community-support", 
+  // unmaintained/abandoned
+  "compiler",
   "skew-protection-test",
   "server-islands-api",
+  "server-islands",
   "starlight-gh-pages-test",
   "action-studio",
   "storefront",
   "studio-templates",
-  "site-kit",
   "astro-ecosystem-ci",
+  "astro-maintainer-skills",
   "skills",
+  "astro-netlify-skew-protection",
+  "workers-builds-log-action",
+  "recall",
+  "triagebot-action",
+  "astro-test",
+  "isastroenvironmentready",
+  // non-Astro projects
+  "flue",
+  "marlo",
 ];
 
-export const allReposData = {
+export const filteredRepos = allRepos.filter((repo) => !HIDDEN_REPOS.includes(repo));
+const dataForMetric = (metric: "issueCount" | "pullRequestCount") => ({
   labels: [...Object.keys(statsFromLast30Days)],
   datasets: [
-    ...allRepos.map((repo) => ({
+    ...filteredRepos.map((repo) => ({
       label: repo,
-      data: getTimeSeriesForRepo(repo, 'issueCount'),
+      data: getTimeSeriesForRepo(repo, metric),
       borderWidth: 1,
       fill: true,
-      hidden: HIDDEN_REPOS.includes(repo) || getAverageCountForRepo(repo, 'issueCount') < 7,
+      hidden: getAverageCountForRepo(repo, metric) < 7,
     })),
   ],
-};
+});
 
-export const sortedReposWithHighIssues = allReposData.datasets
-  .filter((dataset) => !dataset.hidden)
-  .sort((a, b) => {
-    const aToday = a.data.at(-1)!;
-    const bToday = b.data.at(-1)!;
+export const allReposIssueData = dataForMetric("issueCount");
+export const allReposPRData = dataForMetric("pullRequestCount");
 
-    return bToday - aToday;
-  });
+const sortedReposByMetric = (
+  datasets: ReturnType<typeof dataForMetric>["datasets"],
+  metric: "issueCount" | "pullRequestCount"
+) =>
+  datasets
+    .filter((dataset) => !dataset.hidden)
+    .sort((a, b) => {
+      const aToday = a.data.at(-1)!;
+      const bToday = b.data.at(-1)!;
+
+      return bToday - aToday;
+    });
+
+const sortedReposWithHighIssues = sortedReposByMetric(allReposIssueData.datasets, "issueCount");
+const sortedReposWithHighPRs = sortedReposByMetric(allReposPRData.datasets, "pullRequestCount");
 
 export const todayData = {
-  labels: sortedReposWithHighIssues.map((dataset) => dataset.label),
-  datasets: [
-    {
-      label: "Issues",
-      data: sortedReposWithHighIssues.map((dataset) => dataset.data.at(-1)),
-    },
-  ],
+  issues: {
+    labels: sortedReposWithHighIssues.map((dataset) => dataset.label),
+    datasets: [
+      {
+        label: "Issues",
+        data: sortedReposWithHighIssues.map((dataset) => dataset.data.at(-1)),
+      },
+    ],
+  },
+  prs: {
+    labels: sortedReposWithHighPRs.map((dataset) => dataset.label),
+    datasets: [
+      {
+        label: "PRs",
+        data: sortedReposWithHighPRs.map((dataset) => dataset.data.at(-1)),
+      },
+    ],
+  },
 };
 
 export const sortLegend: PluginOptionsByType<
