@@ -1,6 +1,6 @@
 ---
-import { allRepos, statsFromLast30Days } from 'issues:stats';
-import { getAverageCountForRepo } from '../scripts/data';
+import { statsFromLast30Days } from 'issues:stats';
+import { getAverageCountForRepo, filteredRepos } from '../scripts/data';
 
 function getLabelStatsForRepo(repo: string) {
 	const issuePerLabel =
@@ -10,7 +10,7 @@ function getLabelStatsForRepo(repo: string) {
 		.map(([label, count]) => ({ label, count }));
 }
 
-const topReposLabelData = allRepos
+const topReposLabelData = filteredRepos
 	.filter((repo) => getAverageCountForRepo(repo, 'issueCount') >= 7)
 	.map((repo) => ({
 		repo,

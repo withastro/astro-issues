@@ -1,8 +1,8 @@
 ---
 import LabelStats from "../components/LabelStats.astro";
 import Layout from "../layouts/Layout.astro";
-import { getAverageCountForRepo, getTimeSeriesForRepo } from "../scripts/data";
-import { allRepos, statsFromLast30Days } from "issues:stats";
+import { filteredRepos, getAverageCountForRepo, getTimeSeriesForRepo } from "../scripts/data";
+import { statsFromLast30Days } from "issues:stats";
 
 const calculateDrops = (metric: 'issueCount' | 'pullRequestCount') => (repo: string) => {
 	const stats = getTimeSeriesForRepo(repo, metric);
@@ -18,11 +18,11 @@ const calculateDrops = (metric: 'issueCount' | 'pullRequestCount') => (repo: str
 	};
 };
 
-const biggestIssuesDropFromPeak = allRepos
+const biggestIssuesDropFromPeak = filteredRepos
 	.map(calculateDrops('issueCount'))
 	.sort((a, b) => b.drop - a.drop);
 
-const biggestPRsDropFromPeak = allRepos
+const biggestPRsDropFromPeak = filteredRepos
 	.map(calculateDrops('pullRequestCount'))
 	.sort((a, b) => b.drop - a.drop);
 
@@ -33,7 +33,7 @@ function getStandardDeviation(array: number[]) {
 }
 
 const getRepoWithLeastStandardDeviation = (metric: 'issueCount' | 'pullRequestCount') => {
-	const standardDeviationPerRepo = allRepos
+	const standardDeviationPerRepo = filteredRepos
 		.filter((repo) => getAverageCountForRepo(repo, metric) > 7)
 		.map((repo) => {
 			const stats = getTimeSeriesForRepo(repo, metric);
@@ -125,7 +125,8 @@ const funStats = [
   <script>
     import Chart from "chart.js/auto";
     import {
-      allReposData,
+      allReposIssueData,
+      allReposPRData,
       sortLegend,
       sortTooltips,
       todayData,
@@ -143,16 +144,16 @@ const funStats = [
       throw new Error("Could not find canvas element");
     }
 
-    new Chart(allIssuesCTX, {
+    const timelineChartConfig = ({ title, yAxisLabel, data }: { title: string; yAxisLabel: string; data: any }) => ({
       type: "line",
-      data: allReposData,
+      data: data,
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
           title: {
             display: true,
-            text: "Total issues count on all Astro repos",
+            text: title,
           },
           legend: {
             position: "top",
@@ -192,12 +193,18 @@ const funStats = [
             stacked: true,
             title: {
               display: true,
-              text: "Issue count",
+              text: yAxisLabel,
             },
           },
         },
       },
-    });
+    })
+
+    new Chart(allIssuesCTX, timelineChartConfig({
+      title: "Total open issues on all Astro repos",
+      yAxisLabel: "Issue count",
+      data: allReposIssueData
+    }));
 
     new Chart(issuesPerRepoPieChartCTX, {
       type: "pie",

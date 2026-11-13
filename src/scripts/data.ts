@@ -44,20 +44,24 @@ const HIDDEN_REPOS = [
   "marlo",
 ];
 
-export const allReposData = {
+export const filteredRepos = allRepos.filter((repo) => !HIDDEN_REPOS.includes(repo));
+const dataForMetric = (metric: "issueCount" | "pullRequestCount") => ({
   labels: [...Object.keys(statsFromLast30Days)],
   datasets: [
-    ...allRepos.map((repo) => ({
+    ...filteredRepos.map((repo) => ({
       label: repo,
-      data: getTimeSeriesForRepo(repo, 'issueCount'),
+      data: getTimeSeriesForRepo(repo, metric),
       borderWidth: 1,
       fill: true,
-      hidden: HIDDEN_REPOS.includes(repo) || getAverageCountForRepo(repo, 'issueCount') < 7,
+      hidden: HIDDEN_REPOS.includes(repo) || getAverageCountForRepo(repo, metric) < 7,
     })),
   ],
-};
+});
 
-export const sortedReposWithHighIssues = allReposData.datasets
+export const allReposIssueData = dataForMetric("issueCount");
+export const allReposPRData = dataForMetric("pullRequestCount");
+
+const sortedReposWithHighIssues = allReposIssueData.datasets
   .filter((dataset) => !dataset.hidden)
   .sort((a, b) => {
     const aToday = a.data.at(-1)!;
