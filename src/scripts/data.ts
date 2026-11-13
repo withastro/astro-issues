@@ -53,7 +53,7 @@ const dataForMetric = (metric: "issueCount" | "pullRequestCount") => ({
       data: getTimeSeriesForRepo(repo, metric),
       borderWidth: 1,
       fill: true,
-      hidden: HIDDEN_REPOS.includes(repo) || getAverageCountForRepo(repo, metric) < 7,
+      hidden: getAverageCountForRepo(repo, metric) < 7,
     })),
   ],
 });
@@ -61,23 +61,41 @@ const dataForMetric = (metric: "issueCount" | "pullRequestCount") => ({
 export const allReposIssueData = dataForMetric("issueCount");
 export const allReposPRData = dataForMetric("pullRequestCount");
 
-const sortedReposWithHighIssues = allReposIssueData.datasets
-  .filter((dataset) => !dataset.hidden)
-  .sort((a, b) => {
-    const aToday = a.data.at(-1)!;
-    const bToday = b.data.at(-1)!;
+const sortedReposByMetric = (
+  datasets: ReturnType<typeof dataForMetric>["datasets"],
+  metric: "issueCount" | "pullRequestCount"
+) =>
+  datasets
+    .filter((dataset) => !dataset.hidden)
+    .sort((a, b) => {
+      const aToday = a.data.at(-1)!;
+      const bToday = b.data.at(-1)!;
 
-    return bToday - aToday;
-  });
+      return bToday - aToday;
+    });
+
+const sortedReposWithHighIssues = sortedReposByMetric(allReposIssueData.datasets, "issueCount");
+const sortedReposWithHighPRs = sortedReposByMetric(allReposPRData.datasets, "pullRequestCount");
 
 export const todayData = {
-  labels: sortedReposWithHighIssues.map((dataset) => dataset.label),
-  datasets: [
-    {
-      label: "Issues",
-      data: sortedReposWithHighIssues.map((dataset) => dataset.data.at(-1)),
-    },
-  ],
+  issues: {
+    labels: sortedReposWithHighIssues.map((dataset) => dataset.label),
+    datasets: [
+      {
+        label: "Issues",
+        data: sortedReposWithHighIssues.map((dataset) => dataset.data.at(-1)),
+      },
+    ],
+  },
+  prs: {
+    labels: sortedReposWithHighPRs.map((dataset) => dataset.label),
+    datasets: [
+      {
+        label: "PRs",
+        data: sortedReposWithHighPRs.map((dataset) => dataset.data.at(-1)),
+      },
+    ],
+  },
 };
 
 export const sortLegend: PluginOptionsByType<

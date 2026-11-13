@@ -109,14 +109,18 @@ const funStats = [
     >
   </h2>
   <section class="flex flex-col sm:flex-row gap-8">
-     <div class="flex-grow">
-      <LabelStats />
-    </div>
     <div class="flex-1 flex flex-col">
       <h2 class="heading-4 text-white my-6">Issues per repo</h2>
       <div class="bg-white rounded-lg p-4">
         <canvas id="issues-repos-pie-chart"></canvas>
       </div>
+      <h2 class="heading-4 text-white my-6">Pull requests per repo</h2>
+      <div class="bg-white rounded-lg p-4">
+        <canvas id="prs-repos-pie-chart"></canvas>
+      </div>
+    </div>
+    <div class="flex-grow">
+      <LabelStats />
     </div>
   </section>
 
@@ -146,11 +150,10 @@ const funStats = [
     const allIssuesCTX = document.getElementById("all-issues-stacked-graph") as HTMLCanvasElement;
     const allPRsCTX = document.getElementById("all-prs-stacked-graph") as HTMLCanvasElement;
 
-    const issuesPerRepoPieChartCTX = document.querySelector<HTMLCanvasElement>(
-      "#issues-repos-pie-chart",
-    );
+    const issuesPerRepoPieChartCTX = document.getElementById("issues-repos-pie-chart") as HTMLCanvasElement;
+    const prsPerRepoPieChartCTX = document.getElementById("prs-repos-pie-chart") as HTMLCanvasElement;
 
-    if (!allIssuesCTX || !issuesPerRepoPieChartCTX || !allPRsCTX) {
+    if (!allIssuesCTX || !issuesPerRepoPieChartCTX || !allPRsCTX || !prsPerRepoPieChartCTX) {
       throw new Error("Could not find canvas element");
     }
 
@@ -221,9 +224,9 @@ const funStats = [
       data: allReposPRData
     }));
 
-    new Chart(issuesPerRepoPieChartCTX, {
+    const pieChartConfig = ({ data }: { data: any }) => ({
       type: "pie",
-      data: todayData,
+      data,
       options: {
         responsive: true,
         plugins: {
@@ -256,5 +259,8 @@ const funStats = [
         },
       },
     });
+
+    new Chart(issuesPerRepoPieChartCTX, pieChartConfig({ data: todayData.issues }));
+    new Chart(prsPerRepoPieChartCTX, pieChartConfig({ data: todayData.prs }));
   </script>
 </Layout>
