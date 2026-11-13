@@ -1,14 +1,14 @@
 import type { PluginOptionsByType } from "chart.js";
 import { allRepos, statsFromLast30Days } from "issues:stats";
 
-export function getStatsForRepo(repo: string) {
+export function getTimeSeriesForRepo(repo: string, metric: "issueCount" | "pullRequestCount") {
   return Object.values(statsFromLast30Days).map((stats) => {
-    return stats.data?.[repo]?.issueCount ?? 0;
+    return stats.data?.[repo]?.[metric] ?? 0;
   });
 }
 
-export function getAverageIssueCountForRepo(repo: string, lastDays = 5) {
-  const data = getStatsForRepo(repo).slice(-lastDays);
+export function getAverageCountForRepo(repo: string, metric: 'issueCount' | 'pullRequestCount', lastDays = 5) {
+  const data = getTimeSeriesForRepo(repo, metric).slice(-lastDays);
   const sum = data.reduce((a, b) => a + b, 0);
   const avg = sum / data.length || 0;
 
@@ -34,10 +34,10 @@ export const allReposData = {
   datasets: [
     ...allRepos.map((repo) => ({
       label: repo,
-      data: getStatsForRepo(repo),
+      data: getTimeSeriesForRepo(repo, 'issueCount'),
       borderWidth: 1,
       fill: true,
-      hidden: HIDDEN_REPOS.includes(repo) || getAverageIssueCountForRepo(repo) < 7,
+      hidden: HIDDEN_REPOS.includes(repo) || getAverageCountForRepo(repo, 'issueCount') < 7,
     })),
   ],
 };
@@ -64,7 +64,7 @@ export const todayData = {
 export const sortLegend: PluginOptionsByType<
   "pie" | "line"
 >["legend"]["labels"]["sort"] = (a, b) =>
-  getAverageIssueCountForRepo(b.text) - getAverageIssueCountForRepo(a.text);
+  getAverageCountForRepo(b.text, 'issueCount') - getAverageCountForRepo(a.text, 'issueCount');
 
 export const sortTooltips: PluginOptionsByType<
   "pie" | "line"
