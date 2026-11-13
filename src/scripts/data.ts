@@ -16,17 +16,32 @@ export function getAverageCountForRepo(repo: string, metric: 'issueCount' | 'pul
 }
 
 const HIDDEN_REPOS = [
-  "flue",
+  // low-activity
   "wormhole",
+  "site-kit",
+  // issues + PRs disabled
+  "community-support", 
+  // unmaintained/abandoned
+  "compiler",
   "skew-protection-test",
   "server-islands-api",
+  "server-islands",
   "starlight-gh-pages-test",
   "action-studio",
   "storefront",
   "studio-templates",
-  "site-kit",
   "astro-ecosystem-ci",
+  "astro-maintainer-skills",
   "skills",
+  "astro-netlify-skew-protection",
+  "workers-builds-log-action",
+  "recall",
+  "triagebot-action",
+  "astro-test",
+  "isastroenvironmentready",
+  // non-Astro projects
+  "flue",
+  "marlo",
 ];
 
 export const allReposData = {
