@@ -32,25 +32,25 @@ function getStandardDeviation(array: number[]) {
 	return Math.sqrt(array.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n);
 }
 
-const standardDeviationPerRepo = allRepos
-	.filter((repo) => getAverageCountForRepo(repo, 'issueCount') > 7)
-	.map((repo) => {
-		const stats = getTimeSeriesForRepo(repo, 'issueCount');
-		const standardDeviation = getStandardDeviation(stats);
+const getRepoWithLeastStandardDeviation = (metric: 'issueCount' | 'pullRequestCount') => {
+	const standardDeviationPerRepo = allRepos
+		.filter((repo) => getAverageCountForRepo(repo, metric) > 7)
+		.map((repo) => {
+			const stats = getTimeSeriesForRepo(repo, metric);
+			const standardDeviation = getStandardDeviation(stats);
+			return { repo, standardDeviation };
+		})
+		.sort((a, b) => b.standardDeviation - a.standardDeviation);
 
-    return {
-      repo,
-      standardDeviation,
-    };
-  })
-  .sort((a, b) => b.standardDeviation - a.standardDeviation);
+	return standardDeviationPerRepo[standardDeviationPerRepo.length - 1];
+};
 
-const repoWithLeastSD =
-  standardDeviationPerRepo[standardDeviationPerRepo.length - 1];
+const repoWithLeastIssueCountSD = getRepoWithLeastStandardDeviation('issueCount');
+const repoWithLeastPRCountSD = getRepoWithLeastStandardDeviation('pullRequestCount');
 
 const funStats = [
-  {
-    prompt: `Repo with biggest drop in issues <abbr
+	{
+		prompt: `Repo with biggest drop in issues <abbr
       class="text-gray-800 heading-5 ml-[-5px] align-top"
       title="From their highest peak in the last 30 days to today"
       >(?)</abbr
@@ -60,10 +60,26 @@ const funStats = [
 	},
 	{
 		prompt: `Repo with the least change in issues count`,
-		repo: repoWithLeastSD.repo,
+		repo: repoWithLeastIssueCountSD.repo,
 		comment: `Average issue count of ${Math.floor(
-			getAverageCountForRepo(repoWithLeastSD.repo, 'issueCount'),
-		)} (σ = ${repoWithLeastSD.standardDeviation.toFixed(2)}) in the last 30 days.`,
+			getAverageCountForRepo(repoWithLeastIssueCountSD.repo, 'issueCount'),
+		)} (σ = ${repoWithLeastIssueCountSD.standardDeviation.toFixed(2)}) in the last 30 days.`,
+	},
+	{
+		prompt: `Repo with biggest drop in open PRs <abbr
+	    class="text-gray-800 heading-5 ml-[-5px] align-top"
+	    title="From their highest peak in the last 30 days to today"
+	    >(?)</abbr
+	  >`,
+		repo: biggestPRsDropFromPeak[0].repo,
+		comment: `Went from ${biggestPRsDropFromPeak[0].peak} open PRs on the ${biggestPRsDropFromPeak[0].peakDate} to ${biggestPRsDropFromPeak[0].current} open PRs today.`,
+	},
+	{
+		prompt: `Repo with the least change in open PRs count`,
+		repo: repoWithLeastPRCountSD.repo,
+		comment: `Average open PR count of ${Math.floor(
+			getAverageCountForRepo(repoWithLeastPRCountSD.repo, 'pullRequestCount'),
+		)} (σ = ${repoWithLeastPRCountSD.standardDeviation.toFixed(2)}) in the last 30 days.`,
 	},
 ];
 ---
