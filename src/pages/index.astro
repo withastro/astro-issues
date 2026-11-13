@@ -86,8 +86,19 @@ const funStats = [
 
 <Layout wide>
   <h2 class="heading-3 text-white mb-6">Last 30 days</h2>
-  <div class="bg-white rounded-lg min-h-[50vh] sm:min-h-[28rem] px-4 py-2">
-    <canvas id="all-issues-stacked-graph"></canvas>
+  <div class="flex flex-col gap-8 md:grid md:grid-cols-2">
+    <div>
+      <h3 class="heading-4 text-white mb-3">Issues</h3>
+      <div class="bg-white rounded-lg min-h-[50vh] sm:min-h-[28rem] px-4 py-2">
+        <canvas id="all-issues-stacked-graph"></canvas>
+      </div>
+    </div>
+    <div>
+      <h3 class="heading-4 text-white mb-3">Pull requests</h3>
+      <div class="bg-white rounded-lg min-h-[50vh] sm:min-h-[28rem] px-4 py-2">
+        <canvas id="all-prs-stacked-graph"></canvas>
+      </div>
+    </div>
   </div>
 
   <h2 class="heading-3 text-white mt-12">
@@ -132,15 +143,14 @@ const funStats = [
       todayData,
     } from "../scripts/data";
 
-    const allIssuesCTX = document.querySelector<HTMLCanvasElement>(
-      "#all-issues-stacked-graph",
-    );
+    const allIssuesCTX = document.getElementById("all-issues-stacked-graph") as HTMLCanvasElement;
+    const allPRsCTX = document.getElementById("all-prs-stacked-graph") as HTMLCanvasElement;
 
     const issuesPerRepoPieChartCTX = document.querySelector<HTMLCanvasElement>(
       "#issues-repos-pie-chart",
     );
 
-    if (!allIssuesCTX || !issuesPerRepoPieChartCTX) {
+    if (!allIssuesCTX || !issuesPerRepoPieChartCTX || !allPRsCTX) {
       throw new Error("Could not find canvas element");
     }
 
@@ -204,6 +214,11 @@ const funStats = [
       title: "Total open issues on all Astro repos",
       yAxisLabel: "Issue count",
       data: allReposIssueData
+    }));
+    new Chart(allPRsCTX, timelineChartConfig({
+      title: "Total open PRs on all Astro repos",
+      yAxisLabel: "PR count",
+      data: allReposPRData
     }));
 
     new Chart(issuesPerRepoPieChartCTX, {
