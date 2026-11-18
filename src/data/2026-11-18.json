@@ -1,0 +1,393 @@
+{
+  "date": "2026-11-18T08:19:29.441Z",
+  "data": {
+    "astro": {
+      "issuePerLabel": {
+        "pkg: astro": 13,
+        "- P2: has workaround": 6,
+        "triage: unable to fix": 4,
+        "- P3: minor bug": 10,
+        "pkg: cloudflare": 4,
+        "pkg: netlify": 1,
+        "triage: fix pending": 6,
+        "triage: fix verified": 6,
+        "- P4: important": 2,
+        "triage: skipped": 2,
+        "pkg: ts-plugin": 1,
+        "pkg: language-tools": 1,
+        "triage: not actionable": 1,
+        "ecosystem: upstream": 1,
+        "pkg: node": 1,
+        "triage: needs triage": 1,
+        "triage: fix rejected": 1
+      },
+      "issueCount": 21,
+      "pullRequestPerLabel": {
+        "pkg: astro": 62,
+        "fix verified": 6,
+        "feat: markdown": 2,
+        "pkg: example": 4,
+        "pkg: integration": 26,
+        "docs pr": 12,
+        "semver: minor": 15,
+        "🚨 action": 3,
+        "pkg: svelte": 1,
+        "pkg: vue": 1,
+        "pkg: create-astro": 1,
+        "pkg: solid": 1
+      },
+      "pullRequestCount": 87
+    },
+    "docs": {
+      "issuePerLabel": {
+        "improve or update documentation": 6,
+        "help wanted": 2,
+        "Blocked": 1,
+        "code snippet update": 1,
+        "should this be documented?": 1
+      },
+      "issueCount": 7,
+      "pullRequestPerLabel": {
+        "i18n": 19,
+        "🚨 action": 3,
+        "add new content": 2,
+        "3rd-party guide": 2,
+        "minor-release": 3,
+        "improve or update documentation": 2,
+        "code snippet update": 1,
+        "merge-on-release": 1
+      },
+      "pullRequestCount": 37
+    },
+    "prettier-plugin-astro": {
+      "issuePerLabel": {},
+      "issueCount": 4,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 2
+    },
+    "compiler": {
+      "issuePerLabel": {
+        "needs triage": 1
+      },
+      "issueCount": 1,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "astro-repl": {
+      "issuePerLabel": {},
+      "issueCount": 4,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 3
+    },
+    "astro.new": {
+      "issuePerLabel": {},
+      "issueCount": 1,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 1
+    },
+    "roadmap": {
+      "issuePerLabel": {},
+      "issueCount": 4,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 6
+    },
+    "withastro.github.io": {
+      "issuePerLabel": {},
+      "issueCount": 1,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 1
+    },
+    "astro.build": {
+      "issuePerLabel": {},
+      "issueCount": 4,
+      "pullRequestPerLabel": {
+        "ci": 1
+      },
+      "pullRequestCount": 10
+    },
+    "astro-playground": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 1
+    },
+    ".github": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "action": {
+      "issuePerLabel": {
+        "enhancement": 1
+      },
+      "issueCount": 5,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 3
+    },
+    "github-pages": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "cli-kit": {
+      "issuePerLabel": {},
+      "issueCount": 5,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 4
+    },
+    "site-kit": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 1
+    },
+    "blog-tutorial-demo": {
+      "issuePerLabel": {},
+      "issueCount": 1,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "houston-vscode": {
+      "issuePerLabel": {
+        "bug": 2
+      },
+      "issueCount": 5,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 1
+    },
+    "houston-discord": {
+      "issuePerLabel": {
+        "feature": 2,
+        "RFC": 5,
+        "improvement": 1
+      },
+      "issueCount": 9,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 3
+    },
+    "starlight": {
+      "issuePerLabel": {
+        "🐛 bug": 4,
+        "upstream": 3,
+        "🌟 core": 7,
+        "has-workaround": 1,
+        "layout": 4,
+        "🤩 a11y": 2
+      },
+      "issueCount": 10,
+      "pullRequestPerLabel": {
+        "🌟 core": 9,
+        "i18n": 5,
+        "📚 docs": 13,
+        "🌟 minor": 4,
+        "🌟 markdoc": 2,
+        "🌟 docsearch": 2,
+        "🚨 action": 2
+      },
+      "pullRequestCount": 18
+    },
+    "automation": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 1
+    },
+    "view-transitions-demo": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 2
+    },
+    "wormhole": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "contribute.docs.astro.build": {
+      "issuePerLabel": {},
+      "issueCount": 2,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "studio-templates": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {
+        "ci": 1
+      },
+      "pullRequestCount": 1
+    },
+    "astro-issues": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "action-studio": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "astro-ecosystem-ci": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "skew-protection-test": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "support-docs": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "server-islands": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "server-islands-api": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "starlight-gh-pages-test": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "storefront": {
+      "issuePerLabel": {},
+      "issueCount": 3,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 1
+    },
+    "preview.astro.new": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "docs-mcp": {
+      "issuePerLabel": {},
+      "issueCount": 7,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 4
+    },
+    "marlo": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 4
+    },
+    "astro-netlify-skew-protection": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "nightly-bot": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "isastroenvironmentready": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "flue": {
+      "issuePerLabel": {
+        "flue-3": 35,
+        "durability-layer": 18
+      },
+      "issueCount": 77,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 2
+    },
+    "compiler-rs": {
+      "issuePerLabel": {
+        "triage: fix pending": 6,
+        "needs triage": 11,
+        "triage: unable to fix": 3,
+        "triage: fix verified": 2,
+        "- P2: has workaround": 2,
+        "- P3: minor bug": 1
+      },
+      "issueCount": 12,
+      "pullRequestPerLabel": {
+        "fix verified": 2
+      },
+      "pullRequestCount": 14
+    },
+    "skills": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "astro-maintainer-skills": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "workers-builds-log-action": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "recall": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    },
+    "triagebot-action": {
+      "issuePerLabel": {},
+      "issueCount": 1,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 2
+    },
+    "astro-test": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {
+        "astro-review": 1
+      },
+      "pullRequestCount": 1
+    },
+    "factory": {
+      "issuePerLabel": {
+        "triage: fix verified": 1,
+        "triage: unable to fix": 1
+      },
+      "issueCount": 2,
+      "pullRequestPerLabel": {
+        "fix verified": 1
+      },
+      "pullRequestCount": 3
+    },
+    "community-support": {
+      "issuePerLabel": {},
+      "issueCount": 0,
+      "pullRequestPerLabel": {},
+      "pullRequestCount": 0
+    }
+  }
+}
